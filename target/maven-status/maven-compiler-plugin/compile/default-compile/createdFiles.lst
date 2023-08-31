@@ -1,0 +1,6 @@
+com/example/resource/dto/RequestDto.class
+com/example/resource/TestApiApplication.class
+com/example/resource/TestController.class
+com/example/resource/TestMessage.class
+com/example/resource/dto/ResponseDto.class
+com/example/resource/dto/PayloadDto.class
