@@ -1,4 +1,4 @@
-package com.example.resource;
+package com.akitya.testapi.resource;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.resource.dto.PayloadDto;
-import com.example.resource.dto.RequestDto;
-import com.example.resource.dto.ResponseDto;
+import com.akitya.testapi.resource.dto.PayloadDto;
+import com.akitya.testapi.resource.dto.RequestDto;
+import com.akitya.testapi.resource.dto.ResponseDto;
+import com.akitya.testapi.service.TestFortuneTelling;
 
 @RestController
 @CrossOrigin
@@ -21,14 +22,18 @@ public class TestController {
 	ModelMapper modelMapper = new ModelMapper();
 	
 	// Get用
-	@GetMapping("/HelloApi")
-	public String hello() {
-		String return_message = "こんにちは!";
-		TestMessage testMessage = new TestMessage();
-		testMessage.setMessage(return_message);
+	@GetMapping("/fortune-telling")
+	/* おみくじ */
+	public String fortune() {
+		// おみくじ結果
+		String result_fortune = null;
+		TestFortuneTelling testFortuneTelling = new TestFortuneTelling();
+		// おみくじメソッドを起動
+		// おみくじの結果を格納
+		result_fortune = testFortuneTelling.FortuneTelling();
 		
-		// 返却値
-		return testMessage.getMesssage();
+		// おみくじ結果を返却
+		return result_fortune;
 	}
 	
 	// Post用
@@ -39,9 +44,9 @@ public class TestController {
 		System.out.println("起動開始");
 				
 		// リクエストデータをDTOクラスにマッピングする
-		PayloadDto data = modelMapper.map(req.getPayload(), PayloadDto.class);
+		PayloadDto payload_data = modelMapper.map(req.getPayload(), PayloadDto.class);
 		// リクエストデータの確認
-		System.out.println(data);
+		System.out.println(payload_data);
 		
 		// レスポンスDTOを返却する
 		ResponseDto res = new ResponseDto();
